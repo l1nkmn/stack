@@ -6,6 +6,7 @@ int main() {
     for (int i = 0; i < 10; ++i)
         st.push(i);
 
-    for (int i = 0; i < 10; ++i)
-        std::cout << st.pop() << '\n';
+    while (!st.isEmpty()) {
+        std::cout << st.pop() << std::endl;
+    }
 }
