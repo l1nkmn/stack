@@ -127,20 +127,32 @@ public:
             if (c == ' ') { i++; continue; }
 
             if (isVar(c)) {
-                std::map<char, double>::const_iterator it = vars.find(c);
-                if (it == vars.end())
+                bool found = false;
+                double value = 0;
+
+                // проходим по map обычным for по диапазону
+                for (const auto& p : vars) {
+                    if (p.first == c) {
+                        found = true;
+                        value = p.second;
+                        break;
+                    }
+                }
+
+                if (!found)
                     return 3;   // переменная не задана
-                val = it->second;
+
+                val = value;
                 st.push(val);
                 i++;
             }
             else if (isOp(c)) {
                 if (st.isEmpty())
-                    return 4;   // мало операндов
+                    return 4;
                 b = st.pop();
 
                 if (st.isEmpty())
-                    return 4;   // мало операндов
+                    return 4;
                 a = st.pop();
 
                 if (c == '+') val = a + b;
@@ -148,22 +160,22 @@ public:
                 else if (c == '*') val = a * b;
                 else {
                     if (b == 0)
-                        return 5;   // деление на ноль
+                        return 5;
                     val = a / b;
                 }
                 st.push(val);
                 i++;
             }
             else {
-                return 6;   // что-то не то в постфиксной записи
+                return 6;
             }
         }
 
         if (st.isEmpty())
-            return 7;   // выражение некорректно
+            return 7;
         res = st.pop();
         if (!st.isEmpty())
-            return 7;   // выражение некорректно
+            return 7;
         return 0;
     }
 };
