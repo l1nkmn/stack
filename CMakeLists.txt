@@ -27,6 +27,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(tests
     tests/test_arithmetic.cpp
     tests/test_stack.cpp
+    tests/test_deque.cpp
     tests/test_queue.cpp
 )
 target_include_directories(tests PRIVATE include)
