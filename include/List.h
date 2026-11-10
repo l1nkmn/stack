@@ -1,3 +1,5 @@
+#ifndef __LIST_H__
+#define __LIST_H__
 template <class T>
 struct Node {
     T val;
@@ -25,6 +27,17 @@ public:
         tail->next = tmp;
         tail = tmp;
     }
+    void addNodeFront(const T& val) {
+        if (head == nullptr) {
+            head = new Node<T>(val);
+            tail = head;
+            return;
+        }
+        Node<T>* tmp = new Node<T>(val);
+        tmp->next = head;
+        head->prev = tmp;
+        head = tmp;
+    }
 
     void removeNode() {
         if (tail == nullptr) return;
@@ -34,6 +47,16 @@ public:
         else head = nullptr;
         delete tmp;
     }
+
+    void removeNodeFront() {
+        if (head == nullptr) return;
+        Node<T>* tmp = head;
+        head = head->next;
+        if (head) head->prev = nullptr;
+        else tail = nullptr;
+        delete tmp;
+    }
+
     ~List() {
         Node<T>* tmp = head;
         while (tmp != nullptr) {
@@ -43,3 +66,4 @@ public:
         }
     }
 };
+#endif

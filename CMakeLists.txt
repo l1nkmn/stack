@@ -27,6 +27,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(tests
     tests/test_arithmetic.cpp
     tests/test_stack.cpp
+    tests/test_queue.cpp
 )
 target_include_directories(tests PRIVATE include)
 target_link_libraries(tests PRIVATE GTest::gtest_main)
